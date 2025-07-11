@@ -7,7 +7,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     lazy var sankeyChartView: CWSankeyChartView = {
         let view = CWSankeyChartView()
         return view

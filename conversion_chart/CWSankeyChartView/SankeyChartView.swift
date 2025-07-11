@@ -72,6 +72,8 @@ class CWSankeyChartView: UIView {
         self.removeAll()
         self.drawColumnView()
         self.drawBezierPath()
+        
+        // 给一个简易的动画
         if self.animationView.superview == nil {
             self.animationView.frame = self.bounds
             self.animationView.layer.zPosition = 100
@@ -151,15 +153,9 @@ class CWSankeyChartView: UIView {
     
     /// 移除所有视图
     private func removeAll() {
-        self.columnViewArr.forEach { view in
-            view.removeFromSuperview()
-        }
-        self.lineLayerArr.forEach { layer in
-            layer.removeFromSuperlayer()
-        }
-        self.labelArr.forEach { label in
-            label.removeFromSuperview()
-        }
+        self.columnViewArr.forEach { $0.removeFromSuperview() }
+        self.lineLayerArr.forEach { $0.removeFromSuperlayer() }
+        self.labelArr.forEach { $0.removeFromSuperview() }
         self.columnViewArr.removeAll()
         self.lineLayerArr.removeAll()
         self.labelArr.removeAll()
@@ -197,6 +193,7 @@ class CWSankeyChartView: UIView {
                 self.columnViewArr.append(columnView)
                 startY = startY + height + self.columnVPadding
                 
+                // 设置文本
                 let label = UILabel()
                 label.font = UIFont.systemFont(ofSize: 8.0)
                 label.textColor = .black
@@ -218,7 +215,9 @@ class CWSankeyChartView: UIView {
     
     /// 开始绘制贝塞尔曲线
     private func drawBezierPath() {
+        // 初始化数据
         self.initLinkPointData()
+        // 开始绘制
         for link in self.columnLinks {
             let bezierPath = UIBezierPath()
             bezierPath.move(to: link.fromPoint.0)
